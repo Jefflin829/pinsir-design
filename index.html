@@ -4,48 +4,816 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>品舍室內設計 | 台中室內裝修</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 全局樣式 */
+    :root {
+      --primary: #8d6e63;
+      --secondary: #d7ccc8;
+      --accent: #5d4037;
+      --light: #efebe9;
+      --dark: #4e342e;
+      --gold: #c9a769;
+      --text: #333;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background-color: #f9f9f9;
+      overflow-x: hidden;
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .btn {
+      display: inline-block;
+      background: var(--gold);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: 2px solid var(--gold);
+    }
+    
+    .btn:hover {
+      background: transparent;
+      color: var(--gold);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    section {
+      padding: 80px 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+      position: relative;
+    }
+    
+    .section-title h3 {
+      font-size: 2.5rem;
+      display: inline-block;
+      padding-bottom: 15px;
+    }
+    
+    .section-title h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--gold);
+    }
+    
+    /* 導航欄樣式 */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s ease;
+    }
+    
+    header.scrolled {
+      background: white;
+      padding: 10px 0;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo h1 {
+      font-size: 1.8rem;
+      color: var(--accent);
+      margin-left: 10px;
+    }
+    
+    .logo-icon {
+      color: var(--gold);
+      font-size: 2rem;
+    }
+    
+    nav {
+      display: flex;
+    }
+    
+    nav a {
+      color: var(--dark);
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 500;
+      position: relative;
+      padding: 5px 0;
+      transition: all 0.3s ease;
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    
+    nav a:hover {
+      color: var(--gold);
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--dark);
+      cursor: pointer;
+    }
+    
+    /* 英雄區域樣式 */
+    .hero {
+      height: 100vh;
+      min-height: 700px;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+    
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .hero h2 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    /* 服務項目樣式 */
+    #services {
+      background-color: white;
+    }
+    
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .service-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s ease;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .service-img {
+      height: 220px;
+      overflow: hidden;
+    }
+    
+    .service-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .service-card:hover .service-img img {
+      transform: scale(1.1);
+    }
+    
+    .service-content {
+      padding: 25px;
+    }
+    
+    .service-content h4 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: var(--accent);
+    }
+    
+    .service-content p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+    
+    /* 案例作品樣式 */
+    #projects {
+      background: var(--light);
+    }
+    
+    .projects-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+    }
+    
+    .project-item {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 350px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .project-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.5s ease;
+    }
+    
+    .project-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(77, 54, 46, 0.8);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .project-item:hover .project-overlay {
+      opacity: 1;
+    }
+    
+    .project-item:hover img {
+      transform: scale(1.05);
+    }
+    
+    .project-overlay h4 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    
+    .project-overlay p {
+      margin-bottom: 20px;
+      max-width: 300px;
+    }
+    
+    /* 聯絡我們樣式 */
+    .contact-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 50px;
+    }
+    
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .contact-info h4 {
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      color: var(--accent);
+    }
+    
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      color: white;
+      font-size: 1.2rem;
+    }
+    
+    .contact-text h5 {
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+    
+    .contact-text p {
+      color: #666;
+    }
+    
+    .contact-form {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: 'Noto Sans TC', sans-serif;
+      font-size: 1rem;
+      transition: border 0.3s ease;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    
+    .form-group textarea {
+      height: 150px;
+      resize: vertical;
+    }
+    
+    /* 頁腳樣式 */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 60px 0 30px;
+    }
+    
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .footer-col h4 {
+      font-size: 1.4rem;
+      margin-bottom: 25px;
+      color: var(--gold);
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .footer-col h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--gold);
+    }
+    
+    .footer-col p {
+      margin-bottom: 20px;
+      color: #ccc;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .social-links a:hover {
+      background: var(--gold);
+      transform: translateY(-5px);
+    }
+    
+    .footer-links li {
+      list-style: none;
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      color: #ccc;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
+    
+    .footer-links a:hover {
+      color: var(--gold);
+      padding-left: 5px;
+    }
+    
+    .footer-links a i {
+      margin-right: 8px;
+      font-size: 0.8rem;
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+    
+    /* 響應式設計 */
+    @media (max-width: 992px) {
+      .hero h2 {
+        font-size: 2.8rem;
+      }
+      
+      .section-title h3 {
+        font-size: 2.2rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: white;
+        flex-direction: column;
+        padding: 80px 30px 30px;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        transition: right 0.4s ease;
+      }
+      
+      nav.active {
+        right: 0;
+      }
+      
+      nav a {
+        margin: 10px 0;
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .hero h2 {
+        font-size: 2.3rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      section {
+        padding: 60px 0;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .hero h2 {
+        font-size: 2rem;
+      }
+      
+      .section-title h3 {
+        font-size: 1.8rem;
+      }
+      
+      .service-card, .project-item {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>品舍室內設計</h1>
-    <nav>
-      <a href="#services">服務項目</a>
-      <a href="#projects">案例作品</a>
-      <a href="#contact">聯絡我們</a>
-    </nav>
+    <div class="container header-container">
+      <div class="logo">
+        <i class="fas fa-home logo-icon"></i>
+        <h1>品舍室內設計</h1>
+      </div>
+      
+      <nav id="nav">
+        <a href="#services"><i class="fas fa-paint-roller"></i> 服務項目</a>
+        <a href="#projects"><i class="fas fa-images"></i> 案例作品</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> 聯絡我們</a>
+      </nav>
+      
+      <button class="mobile-menu-btn" id="menuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
   </header>
 
   <section class="hero">
-    <h2>打造理想空間，從品舍開始</h2>
-    <p>專業室內設計與舊屋翻新，位於台中。</p>
+    <div class="hero-content">
+      <h2>打造理想空間，從品舍開始</h2>
+      <p>專業室內設計與舊屋翻新，位於台中。我們將您的夢想轉化為舒適的生活空間</p>
+      <a href="#contact" class="btn">預約諮詢</a>
+    </div>
   </section>
 
   <section id="services">
-    <h3>服務項目</h3>
-    <ul>
-      <li>住宅設計與裝修</li>
-      <li>商業空間規劃</li>
-      <li>舊屋翻新</li>
-    </ul>
+    <div class="container">
+      <div class="section-title">
+        <h3>服務項目</h3>
+      </div>
+      
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-img">
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="住宅設計">
+          </div>
+          <div class="service-content">
+            <h4>住宅設計與裝修</h4>
+            <p>從公寓到別墅，我們提供全方位的住宅設計方案，打造舒適、實用且具有個人風格的居住空間。</p>
+            <a href="#contact" class="btn">了解更多</a>
+          </div>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-img">
+            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1950&q=80" alt="商業空間">
+          </div>
+          <div class="service-content">
+            <h4>商業空間規劃</h4>
+            <p>為您的商業空間提供專業設計，創造吸引顧客的環境，提升品牌形象和顧客體驗。</p>
+            <a href="#contact" class="btn">了解更多</a>
+          </div>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-img">
+            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="舊屋翻新">
+          </div>
+          <div class="service-content">
+            <h4>舊屋翻新</h4>
+            <p>讓老屋煥發新生，我們提供專業的舊屋翻新服務，解決結構問題同時提升空間美感。</p>
+            <a href="#contact" class="btn">了解更多</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section id="projects">
-    <h3>案例作品</h3>
-    <div class="grid">
-      <img src="project1.jpg" alt="案例1" />
-      <img src="project2.jpg" alt="案例2" />
+    <div class="container">
+      <div class="section-title">
+        <h3>案例作品</h3>
+      </div>
+      
+      <div class="projects-container">
+        <div class="project-item">
+          <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="現代簡約風">
+          <div class="project-overlay">
+            <h4>現代簡約風</h4>
+            <p>台中市西區 | 住宅設計</p>
+            <a href="#" class="btn">查看詳情</a>
+          </div>
+        </div>
+        
+        <div class="project-item">
+          <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1769&q=80" alt="北歐風咖啡廳">
+          <div class="project-overlay">
+            <h4>北歐風咖啡廳</h4>
+            <p>台中市南屯區 | 商業空間</p>
+            <a href="#" class="btn">查看詳情</a>
+          </div>
+        </div>
+        
+        <div class="project-item">
+          <img src="https://images.unsplash.com/photo-1615529162924-f860538a3b0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="老屋翻新">
+          <div class="project-overlay">
+            <h4>40年老屋翻新</h4>
+            <p>台中市北區 | 舊屋改造</p>
+            <a href="#" class="btn">查看詳情</a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <section id="contact">
-    <h3>聯絡我們</h3>
-    <p>Email: info@pinshe-design.tw</p>
-    <p>LINE: @pinshe</p>
+    <div class="container">
+      <div class="section-title">
+        <h3>聯絡我們</h3>
+      </div>
+      
+      <div class="contact-container">
+        <div class="contact-info">
+          <h4>聯絡資訊</h4>
+          
+          <div class="contact-detail">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="contact-text">
+              <h5>公司地址</h5>
+              <p>台中市西區公益路123號</p>
+            </div>
+          </div>
+          
+          <div class="contact-detail">
+            <div class="contact-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div class="contact-text">
+              <h5>聯絡電話</h5>
+              <p>04-12345678</p>
+            </div>
+          </div>
+          
+          <div class="contact-detail">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-text">
+              <h5>電子郵件</h5>
+              <p>info@pinshe-design.tw</p>
+            </div>
+          </div>
+          
+          <div class="contact-detail">
+            <div class="contact-icon">
+              <i class="fab fa-line"></i>
+            </div>
+            <div class="contact-text">
+              <h5>LINE 官方帳號</h5>
+              <p>@pinshe</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="contact-form">
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">姓名</label>
+              <input type="text" id="name" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="phone">電話</label>
+              <input type="tel" id="phone" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="email">電子郵件</label>
+              <input type="email" id="email" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="message">諮詢內容</label>
+              <textarea id="message" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn">提交預約</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </section>
 
   <footer>
-    <p>© 2025 品舍室內設計有限公司</p>
+    <div class="container">
+      <div class="footer-container">
+        <div class="footer-col">
+          <h4>品舍室內設計</h4>
+          <p>我們致力於創造美觀與實用兼備的空間設計，將您的想像轉化為現實。</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-line"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h4>服務項目</h4>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-right"></i> 住宅設計與裝修</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> 商業空間規劃</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> 舊屋翻新</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> 辦公空間設計</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> 裝修諮詢服務</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>快速連結</h4>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-right"></i> 關於我們</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> 設計團隊</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> 服務流程</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> 最新消息</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> 常見問題</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>營業時間</h4>
+          <p><i class="far fa-clock"></i> 週一至週五: 9:00 - 18:00</p>
+          <p><i class="far fa-clock"></i> 週六: 10:00 - 16:00</p>
+          <p><i class="far fa-clock"></i> 週日: 公休</p>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>© 2025 品舍室內設計有限公司 | 台中市室內裝修商業同業公會會員</p>
+      </div>
+    </div>
   </footer>
-</body>
-</html>
+
+  <script>
+    // 導航欄滾動效果
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('header');
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+    
+    // 移動端菜單切換
+    const menuBtn = document.getElementBy
